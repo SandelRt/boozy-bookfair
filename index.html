@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spring Boozy Bookfair · Atlanta, GA</title>
+  <meta name="description" content="Sip, shop, and chill at the Spring Boozy Bookfair – where plots come with a twist. Books, cocktails, vendors, and vibes at Gate City Brewing, Atlanta." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js"></script>
+  <style>
+    /* ============================================================
+       DESIGN TOKENS
+    ============================================================ */
+    :root {
+      --burgundy:      #6B1A2A;
+      --burgundy-l:    #8B2A3E;
+      --burgundy-d:    #4A0F1B;
+      --gold:          #C9933A;
+      --gold-l:        #E0B05A;
+      --gold-d:        #9B6E20;
+      --black:         #0D0608;
+      --dark:          #130810;
+      --cream:         #F5ECD7;
+      --cream-d:       #D9C9A8;
+      --muted:         rgba(245,236,215,0.45);
+      --muted-l:       rgba(245,236,215,0.7);
+      --glass-bg:      rgba(20, 6, 10, 0.55);
+      --glass-border:  rgba(201, 147, 58, 0.18);
+      --glass-hover:   rgba(201, 147, 58, 0.3);
+      --font-d: 'Playfair Display', Georgia, serif;
+      --font-b: 'Cormorant Garamond', Georgia, serif;
+      --radius: 16px;
+      --radius-sm: 8px;
+    }
+
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--cream);
+      font-family: var(--font-b);
+      font-size: 18px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Ambient background glow */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 15% 20%, rgba(107,26,42,0.25) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 85% 80%, rgba(201,147,58,0.12) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 30% at 50% 50%, rgba(107,26,42,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    section { position: relative; z-index: 1; padding: 6rem 2rem; }
+    .container { max-width: 1160px; margin: 0 auto; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ============================================================
+       GLASS PANELS
+    ============================================================ */
+    .glass {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: var(--radius);
+    }
+    .glass:hover { border-color: var(--glass-hover); }
+
+    /* ============================================================
+       BUTTONS
+    ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .9rem 2rem;
+      font-family: var(--font-d);
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: all .3s cubic-bezier(.16,1,.3,1);
+      text-decoration: none;
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-l) 100%);
+      color: var(--black);
+      box-shadow: 0 4px 24px rgba(201,147,58,0.35);
+    }
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(201,147,58,0.5);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--cream);
+      border: 1px solid var(--glass-border);
+    }
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    /* ============================================================
+       NAV
+    ============================================================ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      background: rgba(13,6,8,0.7);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .nav-logo {
+      font-family: var(--font-d);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      color: var(--cream);
+    }
+    .nav-logo span { color: var(--gold); font-style: italic; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-links a {
+      font-size: .72rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--muted-l);
+      transition: color .3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-ticket {
+      padding: .6rem 1.4rem;
+      font-family: var(--font-d);
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, var(--gold), var(--gold-l));
+      color: var(--black);
+      border-radius: 50px;
+      transition: all .3s;
+    }
+    .nav-ticket:hover { box-shadow: 0 4px 20px rgba(201,147,58,0.4); transform: translateY(-1px); }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 0;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: url('images/hero.png') center center / cover no-repeat;
+      opacity: 0.45;
+      filter: blur(1px);
+      mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    }
+    .hero-veil {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(to right, rgba(13,6,8,0.92) 35%, rgba(13,6,8,0.5) 65%, transparent 100%);
+    }
+    .hero-3d {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      justify-content: flex-end;
+      pointer-events: none;
+    }
+    .hero-3d spline-viewer {
+      width: 55% !important;
+      height: 100% !important;
+      opacity: 0.9;
+    }
+    .hero-body {
+      position: relative;
+      z-index: 4;
+      padding: 9rem 3rem 6rem;
+      max-width: 620px;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: .75rem;
+      font-size: .68rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.75rem;
+    }
+    .hero-tag::before, .hero-tag::after {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--gold);
+      opacity: .6;
+    }
+    h1.hero-title {
+      font-family: var(--font-d);
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      color: var(--cream);
+      margin-bottom: 1rem;
+    }
+    h1.hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-sub {
+      font-size: 1.15rem;
+      font-weight: 300;
+      color: var(--muted-l);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+      font-style: italic;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-foot {
+      position: absolute;
+      bottom: 2.5rem; left: 3rem; right: 3rem;
+      z-index: 4;
+      display: flex;
+      gap: 3rem;
+    }
+    .stat-n {
+      font-family: var(--font-d);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-l {
+      font-size: .7rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: .3rem;
+    }
+
+    /* ============================================================
+       SECTION TITLES
+    ============================================================ */
+    .sec-tag {
+      font-size: .68rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .8rem;
+    }
+    .sec-title {
+      font-family: var(--font-d);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--cream);
+      margin-bottom: 1.5rem;
+    }
+    .sec-title em { color: var(--gold); font-style: italic; }
+    .sec-sub {
+      font-size: 1.05rem;
+      color: var(--muted-l);
+      max-width: 540px;
+      font-weight: 300;
+    }
+
+    /* ============================================================
+       ABOUT SECTION
+    ============================================================ */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .about-content { padding: 3rem; }
+    .about-img {
+      border-radius: var(--radius);
+      overflow: hidden;
+      height: 480px;
+      position: relative;
+    }
+    .about-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.8;
+    }
+    .about-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(107,26,42,0.4), rgba(201,147,58,0.15));
+      border-radius: var(--radius);
+    }
+    .about-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .5rem 1.2rem;
+      border: 1px solid var(--glass-border);
+      border-radius: 50px;
+      font-size: .72rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2rem;
+      background: rgba(201,147,58,0.08);
+    }
+    .about-list {
+      list-style: none;
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: .8rem;
+    }
+    .about-list li {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      font-size: .95rem;
+      color: var(--muted-l);
+    }
+    .about-list li::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ============================================================
+       TICKETS SECTION
+    ============================================================ */
+    .tickets-section {
+      position: relative;
+      overflow: hidden;
+    }
+    .tickets-bg {
+      position: absolute;
+      inset: 0;
+      background: url('images/tickets.png') center center / cover no-repeat;
+      opacity: 0.2;
+      filter: blur(2px);
+    }
+    .tickets-content { position: relative; z-index: 1; }
+    .tickets-header { text-align: center; margin-bottom: 3.5rem; }
+    .tickets-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .ticket-card {
+      padding: 2.5rem;
+      border-radius: var(--radius);
+      position: relative;
+      overflow: hidden;
+      transition: transform .4s cubic-bezier(.16,1,.3,1), border-color .3s;
+    }
+    .ticket-card:hover { transform: translateY(-6px); }
+    .ticket-card.vip {
+      border-color: rgba(201,147,58,0.4);
+      background: rgba(30, 10, 14, 0.75);
+    }
+    .ticket-card.vip::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(201,147,58,0.08), transparent 60%);
+      border-radius: var(--radius);
+      pointer-events: none;
+    }
+    .ticket-emoji { font-size: 2.2rem; margin-bottom: 1rem; }
+    .ticket-name {
+      font-family: var(--font-d);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: .3rem;
+    }
+    .ticket-price {
+      font-family: var(--font-d);
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+    .ticket-price span { font-size: 1rem; font-weight: 400; color: var(--muted); }
+    .ticket-divider {
+      height: 1px;
+      background: var(--glass-border);
+      margin-bottom: 1.5rem;
+    }
+    .ticket-perks {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      margin-bottom: 2rem;
+    }
+    .ticket-perks li {
+      display: flex;
+      align-items: flex-start;
+      gap: .6rem;
+      font-size: .95rem;
+      color: var(--muted-l);
+      line-height: 1.5;
+    }
+    .ticket-perks li::before {
+      content: '✓';
+      color: var(--gold);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: .1rem;
+    }
+    .vip-badge {
+      position: absolute;
+      top: 1.5rem; right: 1.5rem;
+      padding: .3rem .8rem;
+      background: linear-gradient(135deg, var(--gold), var(--gold-l));
+      color: var(--black);
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      border-radius: 50px;
+    }
+
+    /* ============================================================
+       EXPERIENCE / WHAT TO EXPECT
+    ============================================================ */
+    .experience-header { text-align: center; margin-bottom: 3.5rem; }
+    .experience-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .exp-card {
+      padding: 2rem 1.75rem;
+      text-align: center;
+      transition: transform .4s cubic-bezier(.16,1,.3,1), border-color .3s;
+    }
+    .exp-card:hover { transform: translateY(-5px); border-color: var(--glass-hover); }
+    .exp-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+    .exp-title {
+      font-family: var(--font-d);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: .5rem;
+    }
+    .exp-desc { font-size: .88rem; color: var(--muted); line-height: 1.6; }
+
+    /* ============================================================
+       INSTAGRAM GALLERY
+    ============================================================ */
+    .ig-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .ig-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    .ig-post {
+      aspect-ratio: 1;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      position: relative;
+      background: rgba(107,26,42,0.2);
+      border: 1px solid var(--glass-border);
+      transition: transform .3s, border-color .3s;
+    }
+    .ig-post:hover { transform: scale(1.02); border-color: var(--gold); }
+    .ig-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      color: var(--muted);
+      font-size: .75rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .ig-placeholder .ig-icon { font-size: 1.8rem; opacity: .5; }
+    .ig-handle {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-family: var(--font-d);
+      font-size: 1rem;
+      color: var(--muted-l);
+      font-style: italic;
+    }
+    .ig-handle a { color: var(--gold); transition: opacity .3s; }
+    .ig-handle a:hover { opacity: .75; }
+
+    /* ============================================================
+       LOCATION
+    ============================================================ */
+    .location-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .location-card { padding: 3rem; }
+    .loc-row {
+      display: flex;
+      gap: 1.2rem;
+      margin-bottom: 2rem;
+      align-items: flex-start;
+    }
+    .loc-icon {
+      width: 42px; height: 42px;
+      flex-shrink: 0;
+      background: rgba(201,147,58,0.1);
+      border: 1px solid rgba(201,147,58,0.2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: border-color .3s;
+    }
+    .loc-row:hover .loc-icon { border-color: var(--gold); }
+    .loc-lbl {
+      display: block;
+      font-size: .68rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .25rem;
+    }
+    .loc-val { font-size: .95rem; color: var(--muted-l); line-height: 1.6; }
+    .location-map {
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: rgba(107,26,42,0.15);
+      border: 1px solid var(--glass-border);
+      height: 340px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+      color: var(--muted);
+      font-size: .85rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .location-map .map-icon { font-size: 3rem; }
+
+    /* ============================================================
+       CTA / NEWSLETTER
+    ============================================================ */
+    .cta-section { text-align: center; }
+    .cta-card {
+      padding: 5rem 3rem;
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(107,26,42,0.3), rgba(201,147,58,0.08));
+      border-radius: var(--radius);
+      pointer-events: none;
+    }
+    .cta-card-content { position: relative; z-index: 1; }
+    .cta-form {
+      display: flex;
+      gap: 1rem;
+      max-width: 480px;
+      margin: 2rem auto 0;
+    }
+    .cta-input {
+      flex: 1;
+      padding: .9rem 1.4rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--glass-border);
+      border-radius: 50px;
+      color: var(--cream);
+      font-family: var(--font-b);
+      font-size: .95rem;
+      outline: none;
+      transition: border-color .3s;
+    }
+    .cta-input::placeholder { color: var(--muted); }
+    .cta-input:focus { border-color: var(--gold); }
+    .cta-note {
+      margin-top: 1rem;
+      font-size: .78rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      position: relative;
+      z-index: 10;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(20px);
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .footer-logo {
+      font-family: var(--font-d);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--cream);
+    }
+    .footer-logo span { color: var(--gold); font-style: italic; }
+    .footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
+    .footer-links a {
+      font-size: .72rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color .3s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy { font-size: .68rem; color: var(--muted); opacity: .5; }
+
+    /* ============================================================
+       MOBILE STICKY BAR
+    ============================================================ */
+    .sticky-bar {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 200;
+      padding: .9rem 1.25rem;
+      background: rgba(13,6,8,0.92);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-top: 1px solid var(--glass-border);
+      gap: .75rem;
+    }
+    .sticky-bar a {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: .9rem;
+      font-family: var(--font-d);
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all .3s;
+    }
+    .sticky-bar .s-ticket {
+      background: linear-gradient(135deg, var(--gold), var(--gold-l));
+      color: var(--black);
+      font-weight: 700;
+    }
+    .sticky-bar .s-ig {
+      background: rgba(255,255,255,0.07);
+      color: var(--cream);
+      border: 1px solid var(--glass-border);
+    }
+
+    /* ============================================================
+       SCROLL REVEAL
+    ============================================================ */
+    .rv {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+    }
+    .rv.in { opacity: 1; transform: none; }
+    .rv-delay-1 { transition-delay: .1s; }
+    .rv-delay-2 { transition-delay: .2s; }
+    .rv-delay-3 { transition-delay: .3s; }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1024px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .about-img { height: 320px; }
+      .location-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .hero-3d { display: none; }
+      .hero-veil { background: rgba(13,6,8,0.75); }
+      .hero-body { max-width: 100%; padding: 7rem 1.5rem 5rem; }
+      .hero-foot { left: 1.5rem; right: 1.5rem; bottom: 1.5rem; gap: 2rem; }
+      .tickets-grid { grid-template-columns: 1fr; }
+      .experience-grid { grid-template-columns: 1fr 1fr; }
+      .ig-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 540px) {
+      nav { padding: 1rem 1.25rem; }
+      section { padding: 4rem 1.25rem; }
+      .experience-grid { grid-template-columns: 1fr; }
+      .cta-form { flex-direction: column; }
+      footer { flex-direction: column; text-align: center; }
+      .footer-links { justify-content: center; }
+      .sticky-bar { display: flex; }
+      body { padding-bottom: 72px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+============================================================ -->
+<nav>
+  <div class="nav-logo">Boozy <span>Bookfair</span></div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#tickets">Tickets</a>
+    <a href="#experience">Experience</a>
+    <a href="#location">Location</a>
+  </div>
+  <a href="#tickets" class="nav-ticket">Get Tickets</a>
+</nav>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-veil"></div>
+  <div class="hero-3d">
+    <spline-viewer
+      url="https://prod.spline.design/y8UpahbeOmo9Al5F/scene.splinecode"
+      background="transparent"
+      loading="eager"
+      events-target="global"
+      style="width:100%;height:100%">
+    </spline-viewer>
+  </div>
+  <div class="hero-body">
+    <div class="hero-tag">Spring 2025 · Atlanta, GA</div>
+    <h1 class="hero-title">
+      Spring<br>
+      <em>Boozy</em><br>
+      Bookfair
+    </h1>
+    <p class="hero-sub">Where plots come with a twist. Sip, shop, and chill with your fellow bookish babes.</p>
+    <div class="hero-actions">
+      <a href="#tickets" class="btn btn-gold">Get Tickets ↓</a>
+      <a href="https://www.instagram.com/boozybooksatl/" target="_blank" rel="noopener" class="btn btn-outline">Follow @boozybooksatl</a>
+    </div>
+  </div>
+  <div class="hero-foot">
+    <div>
+      <div class="stat-n">All Ages</div>
+      <div class="stat-l">Welcome</div>
+    </div>
+    <div>
+      <div class="stat-n">Books + Booze</div>
+      <div class="stat-l">The Perfect Pairing</div>
+    </div>
+    <div>
+      <div class="stat-n">Gate City</div>
+      <div class="stat-l">Brewing, Atlanta</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ABOUT
+============================================================ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid glass">
+      <div class="about-content rv">
+        <div class="about-badge">📖 The Vibe</div>
+        <p class="sec-tag">What it's all about</p>
+        <h2 class="sec-title">Books, Brews &amp; <em>Beautiful Chaos</em></h2>
+        <p class="sec-sub">
+          Designed for bookish babes, fantasy lovers, and fairytale fanatics who know their TBR is as deep as their drink of choice.
+        </p>
+        <ul class="about-list">
+          <li>Curated book vendors and pop-up shops</li>
+          <li>Crafts, food, and specialty drinks</li>
+          <li>Live performance from a special guest</li>
+          <li>The Backhouse Immersive Experience (VIP)</li>
+          <li>Hosted by the fabulous Gate City Brewing</li>
+          <li>All ages welcome — families included!</li>
+        </ul>
+      </div>
+      <div class="about-img rv rv-delay-1">
+        <img src="images/hero.png" alt="Boozy Bookfair atmosphere" />
+        <div class="about-img-overlay"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TICKETS
+============================================================ -->
+<section id="tickets" class="tickets-section">
+  <div class="tickets-bg"></div>
+  <div class="container tickets-content">
+    <div class="tickets-header rv">
+      <p class="sec-tag">Choose Your Chapter</p>
+      <h2 class="sec-title">Get Your <em>Tickets</em></h2>
+      <p class="sec-sub" style="margin:0 auto;">Pick the experience that matches your vibe. Whether you're showing up for the books or the booze — we've got a seat for you.</p>
+    </div>
+    <div class="tickets-grid">
+      <!-- Avid Reader -->
+      <div class="ticket-card glass rv rv-delay-1">
+        <div class="ticket-emoji">📖</div>
+        <div class="ticket-name">Avid Reader</div>
+        <div class="ticket-price">$15 <span>/ person</span></div>
+        <div class="ticket-divider"></div>
+        <ul class="ticket-perks">
+          <li>Entry to the event space</li>
+          <li>Access to all vendors and pop-ups</li>
+          <li>1 Drink Ticket included</li>
+          <li>1 Raffle Ticket included</li>
+        </ul>
+        <a href="#" class="btn btn-outline" style="width:100%;justify-content:center;" id="avid-ticket-btn">Get Tickets →</a>
+      </div>
+      <!-- VIP Bookworm -->
+      <div class="ticket-card glass vip rv rv-delay-2">
+        <div class="vip-badge">✨ VIP</div>
+        <div class="ticket-emoji">🌸</div>
+        <div class="ticket-name">VIP Bookworm</div>
+        <div class="ticket-price">$50 <span>/ person</span></div>
+        <div class="ticket-divider"></div>
+        <ul class="ticket-perks">
+          <li>Everything in Avid Reader</li>
+          <li>Early access to The Backhouse Immersive Space</li>
+          <li>VIP Tote Bag packed with bookish goodies</li>
+          <li>Curated sponsor surprises inside</li>
+        </ul>
+        <a href="#" class="btn btn-gold" style="width:100%;justify-content:center;" id="vip-ticket-btn">Get VIP Tickets →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     EXPERIENCE
+============================================================ -->
+<section id="experience">
+  <div class="container">
+    <div class="experience-header rv">
+      <p class="sec-tag">What awaits you</p>
+      <h2 class="sec-title">The <em>Experience</em></h2>
+    </div>
+    <div class="experience-grid">
+      <div class="exp-card glass rv rv-delay-1">
+        <div class="exp-icon">📚</div>
+        <div class="exp-title">Book Vendors</div>
+        <div class="exp-desc">Browse a curated selection of books from indie vendors and pop-up shops.</div>
+      </div>
+      <div class="exp-card glass rv rv-delay-2">
+        <div class="exp-icon">🍹</div>
+        <div class="exp-title">Craft Drinks</div>
+        <div class="exp-desc">Signature cocktails and local brews from Gate City Brewing. Drink tickets included.</div>
+      </div>
+      <div class="exp-card glass rv rv-delay-3">
+        <div class="exp-icon">🎤</div>
+        <div class="exp-title">Live Performance</div>
+        <div class="exp-desc">A special performance from a guest artist to keep the energy electric all day.</div>
+      </div>
+      <div class="exp-card glass rv rv-delay-1">
+        <div class="exp-icon">✨</div>
+        <div class="exp-title">Immersive Space</div>
+        <div class="exp-desc">VIPs get early access to The Backhouse — a fully immersive bookish experience.</div>
+      </div>
+      <div class="exp-card glass rv rv-delay-2">
+        <div class="exp-icon">🛍️</div>
+        <div class="exp-title">Vendors &amp; Crafts</div>
+        <div class="exp-desc">Artisan crafts, bookish merch, and specialty vendors to shop to your heart's content.</div>
+      </div>
+      <div class="exp-card glass rv rv-delay-3">
+        <div class="exp-icon">🎟️</div>
+        <div class="exp-title">Raffle Prizes</div>
+        <div class="exp-desc">Every Avid Reader ticket comes with a raffle ticket. You might just win big.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     INSTAGRAM GALLERY
+============================================================ -->
+<section id="gallery">
+  <div class="container">
+    <div class="ig-header rv">
+      <div>
+        <p class="sec-tag">Follow Along</p>
+        <h2 class="sec-title" style="margin-bottom:0">The <em>Feed</em></h2>
+      </div>
+      <a href="https://www.instagram.com/boozybooksatl/" target="_blank" rel="noopener" class="btn btn-outline">Follow on IG →</a>
+    </div>
+    <div class="ig-grid rv">
+      <a href="https://www.instagram.com/boozybooksatl/" target="_blank" rel="noopener" class="ig-post">
+        <div class="ig-placeholder"><span class="ig-icon">📸</span><span>View on IG</span></div>
+      </a>
+      <a href="https://www.instagram.com/boozybooksatl/" target="_blank" rel="noopener" class="ig-post">
+        <div class="ig-placeholder"><span class="ig-icon">📸</span><span>View on IG</span></div>
+      </a>
+      <a href="https://www.instagram.com/boozybooksatl/" target="_blank" rel="noopener" class="ig-post">
+        <div class="ig-placeholder"><span class="ig-icon">📸</span><span>View on IG</span></div>
+      </a>
+      <a href="https://www.instagram.com/boozybooksatl/" target="_blank" rel="noopener" class="ig-post">
+        <div class="ig-placeholder"><span class="ig-icon">📸</span><span>View on IG</span></div>
+      </a>
+    </div>
+    <p class="ig-handle rv">Follow the magic — <a href="https://www.instagram.com/boozybooksatl/" target="_blank" rel="noopener">@boozybooksatl</a></p>
+  </div>
+</section>
+
+<!-- ============================================================
+     LOCATION
+============================================================ -->
+<section id="location">
+  <div class="container">
+    <div class="location-grid">
+      <div class="location-card glass rv">
+        <p class="sec-tag">Find Us</p>
+        <h2 class="sec-title">Location &amp; <em>Details</em></h2>
+        <div class="loc-row">
+          <div class="loc-icon">📍</div>
+          <div>
+            <span class="loc-lbl">Venue</span>
+            <span class="loc-val">Gate City Brewing<br>Atlanta, GA</span>
+          </div>
+        </div>
+        <div class="loc-row">
+          <div class="loc-icon">📅</div>
+          <div>
+            <span class="loc-lbl">Date</span>
+            <span class="loc-val" id="event-date">Date TBA — check Instagram for updates</span>
+          </div>
+        </div>
+        <div class="loc-row">
+          <div class="loc-icon">🕐</div>
+          <div>
+            <span class="loc-lbl">Time</span>
+            <span class="loc-val">Doors Open — Time TBA<br><span style="color:var(--gold)">VIP Early Access Available</span></span>
+          </div>
+        </div>
+        <div class="loc-row">
+          <div class="loc-icon">🍺</div>
+          <div>
+            <span class="loc-lbl">Hosted By</span>
+            <span class="loc-val">Gate City Brewing · All Ages Welcome</span>
+          </div>
+        </div>
+        <a href="https://www.google.com/maps/search/Gate+City+Brewing+Atlanta+GA" target="_blank" rel="noopener" class="btn btn-outline" style="margin-top:.5rem">Get Directions →</a>
+      </div>
+      <div class="location-map rv rv-delay-1">
+        <div class="map-icon">🗺️</div>
+        <span>Gate City Brewing</span>
+        <span style="font-size:.7rem;letter-spacing:.05em;text-transform:none;color:var(--muted)">Atlanta, Georgia</span>
+        <a href="https://www.google.com/maps/search/Gate+City+Brewing+Atlanta+GA" target="_blank" rel="noopener" class="btn btn-outline" style="margin-top:.5rem;font-size:.65rem">Open in Maps →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CTA / NEWSLETTER
+============================================================ -->
+<section id="newsletter" class="cta-section">
+  <div class="container">
+    <div class="cta-card glass rv">
+      <div class="cta-card-content">
+        <p class="sec-tag">Never Miss a Chapter</p>
+        <h2 class="sec-title">Stay in the <em>Story</em></h2>
+        <p class="sec-sub" style="margin:0 auto 0;text-align:center;">Get first access to tickets, events, and bookish chaos straight to your inbox. No spam — just vibes.</p>
+        <form class="cta-form" onsubmit="handleNewsletterSubmit(event)" id="newsletter-form">
+          <input type="email" class="cta-input" placeholder="your@email.com" required id="newsletter-email" />
+          <button type="submit" class="btn btn-gold">Join the Coven</button>
+        </form>
+        <p class="cta-note">Unsubscribe anytime. We only send the good stuff. 📖✨</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer>
+  <div class="footer-logo">Boozy <span>Bookfair</span> · Atlanta</div>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#tickets">Tickets</a>
+    <a href="#experience">Experience</a>
+    <a href="#location">Location</a>
+    <a href="https://www.instagram.com/boozybooksatl/" target="_blank" rel="noopener">Instagram</a>
+  </div>
+  <div class="footer-copy">© 2025 Spring Boozy Bookfair · Atlanta, GA · All rights reserved.</div>
+</footer>
+
+<!-- ============================================================
+     MOBILE STICKY BAR
+============================================================ -->
+<div class="sticky-bar">
+  <a href="#tickets" class="s-ticket">Get Tickets</a>
+  <a href="https://www.instagram.com/boozybooksatl/" target="_blank" rel="noopener" class="s-ig">📸 Follow</a>
+</div>
+
+<!-- ============================================================
+     SCRIPTS
+============================================================ -->
+<script>
+  // Scroll Reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.rv').forEach(el => observer.observe(el));
+
+  // Newsletter form
+  function handleNewsletterSubmit(e) {
+    e.preventDefault();
+    const email = document.getElementById('newsletter-email').value;
+    const btn = e.target.querySelector('button');
+    btn.textContent = '✓ You're in!';
+    btn.style.background = 'linear-gradient(135deg, #6B1A2A, #8B2A3E)';
+    btn.style.color = '#F5ECD7';
+    btn.disabled = true;
+    console.log('Newsletter signup:', email);
+    // TODO: Connect to Beehiiv API
+  }
+</script>
+
+</body>
+</html>
